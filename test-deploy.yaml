@@ -5,11 +5,11 @@
     become: true
     tasks:
       - name: Login
-           ovirt_auth:
-             url: "{{ lookup('env','OVIRT_URL') }}"
-             username: "{{ lookup('env','OVIRT_USERNAME') }}"
-             password: "{{ lookup('env','OVIRT_PASSWORD') }}"
-             
+        ovirt_auth:
+          url: "{{ lookup('env','OVIRT_URL') }}"
+          username: "{{ lookup('env','OVIRT_USERNAME') }}"
+          password: "{{ lookup('env','OVIRT_PASSWORD') }}"
+
       - name: create disk for vm
         ovirt_disk:
           name: myvm_disk

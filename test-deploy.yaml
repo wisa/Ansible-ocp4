@@ -1,0 +1,30 @@
+---
+  - name: deploy vm test
+    hosts: rhv
+    gather_facts: false
+    become: true
+    tasks:
+      - name: create disk for vm
+        ovirt_disk:
+          name: myvm_disk
+          vm_name: rhel7
+          size: 25GiB
+          format: cow
+          interface: virtio_scsi
+          storage_domain: data
+
+      - name: deploy vm
+        ovirt_vm:
+          state: present
+          cluster: Default
+          name: myvm
+          memory: 2GiB
+          cpu_cores: 2
+          type: server
+          operating_system: other_linux
+          disks:
+            - name: myvm_disk
+              bootable: True
+          nics:
+          - name: nic1
+            profile_name: ovirtmgmt

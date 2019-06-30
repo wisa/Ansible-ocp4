@@ -34,7 +34,7 @@
           boot_devices: hd
           kernel_path: /installer/rhcos-4.1.0-x86_64-installer-kernel
           initrd_path: /installer/rhcos-4.1.0-x86_64-installer-initramfs.img
-          kernel_params: ip=dhcp nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.image_url=http://webserver.wisa.mylab/boot/rhcos-4.1.0-x86_64-metal-bios.raw.gz coreos.inst.ignition_url=http://webserver.wisa.mylab/boot/master.ign
+          kernel_params: ip=dhcp nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.image_url=http://webserver.wisa.mylab/boot/rhcos-4.1.0-x86_64-metal-bios.raw.gz coreos.inst.ignition_url=http://webserver.wisa.mylab/boot/worker.ign
           kernel_params_persist: no
           cluster: Default
           name: Worker{{ item }}

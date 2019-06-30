@@ -1,0 +1,53 @@
+---
+  - name: deploy vm test
+    hosts: rhvm.wisa.mylab
+    gather_facts: false
+    become: true
+    vars_files: secret.yaml
+    tasks:
+      - name: Login
+        ovirt_auth:
+          url: "{{ OVIRT_URL }}"
+          username: "{{ OVIRT_USER }}"
+          password: "{{ OVIRT_PASS }}"
+
+      - name: Create disk for Worker vm
+        ovirt_disk:
+          auth: "{{ ovirt_auth }}"
+          activate: yes
+          bootable: yes
+          name: Worker{{ item }}_disk
+          size: 25GiB
+          format: cow
+          interface: virtio
+          storage_domain: NFS-RHV3
+        with_items:
+          - 0
+          - 1
+
+
+      - name: Deploy Worker vm and running it
+        ovirt_vm:
+          auth: "{{ ovirt_auth }}"
+          state: running
+          boot_menu: yes
+          boot_devices: hd
+          kernel_path: /installer/rhcos-4.1.0-x86_64-installer-kernel
+          initrd_path: /installer/rhcos-4.1.0-x86_64-installer-initramfs.img
+          kernel_params: ip=dhcp nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.image_url=http://webserver.wisa.mylab/boot/rhcos-4.1.0-x86_64-metal-bios.raw.gz coreos.inst.ignition_url=http://webserver.wisa.mylab/boot/master.ign
+          kernel_params_persist: no
+          cluster: Default
+          name: Waster{{ item }}
+          memory: 8GiB
+          cpu_cores: 2
+          type: server
+          operating_system: other_linux
+          disks:
+            - name: Waster{{ item }}_disk
+              bootable: True
+          nics:
+          - name: nic1
+            profile_name: ovirtmgmt
+        with_items:
+          - 0
+          - 1

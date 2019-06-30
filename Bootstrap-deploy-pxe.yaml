@@ -1,0 +1,42 @@
+---
+  - name: Deploy Bootstrap VM
+    hosts: rhvm.wisa.mylab
+    gather_facts: false
+    become: true
+    vars_files: secret.yaml
+    tasks:
+      - name: Login
+        ovirt_auth:
+          url: "{{ OVIRT_URL }}"
+          username: "{{ OVIRT_USER }}"
+          password: "{{ OVIRT_PASS }}"
+
+      - name: Create disk for Bootstrap
+        ovirt_disk:
+          auth: "{{ ovirt_auth }}"
+          activate: yes
+          bootable: yes
+          name: Bootstrap_disk
+          size: 25GiB
+          format: cow
+          interface: virtio
+          storage_domain: hosted_storage
+
+      - name: Deploy Bootstrap vm and running it
+        ovirt_vm:
+          auth: "{{ ovirt_auth }}"
+          state: running
+          boot_menu: no
+          boot_devices: [ hd, network ]
+          cluster: Default
+          name: Bootstrap
+          memory: 8GiB
+          cpu_cores: 2
+          type: server
+          operating_system: other_linux
+          disks:
+            - name: Bootstrap_disk
+              bootable: True
+          nics:
+          - name: nic1
+            profile_name: ovirtmgmt

@@ -3,15 +3,17 @@
     hosts: rhvm.wisa.mylab
     gather_facts: false
     become: true
+    vars_files: secret.yaml
     tasks:
       - name: Login
         ovirt_auth:
-          url: "{{ lookup('env','OVIRT_URL') }}"
-          username: "{{ lookup('env','OVIRT_USERNAME') }}"
-          password: "{{ lookup('env','OVIRT_PASSWORD') }}"
+          url: "{{ OVIRT_URL }}"
+          username: "{{ OVIRT_USER }}"
+          password: "{{ OVIRT_PASS }}"
 
       - name: create disk for vm
         ovirt_disk:
+          auth: "{{ ovirt_auth }}"
           name: myvm_disk
           vm_name: rhel7
           size: 25GiB

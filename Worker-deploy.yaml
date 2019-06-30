@@ -37,13 +37,13 @@
           kernel_params: ip=dhcp nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda coreos.inst.image_url=http://webserver.wisa.mylab/boot/rhcos-4.1.0-x86_64-metal-bios.raw.gz coreos.inst.ignition_url=http://webserver.wisa.mylab/boot/master.ign
           kernel_params_persist: no
           cluster: Default
-          name: Waster{{ item }}
+          name: Worker{{ item }}
           memory: 8GiB
           cpu_cores: 2
           type: server
           operating_system: other_linux
           disks:
-            - name: Waster{{ item }}_disk
+            - name: Worker{{ item }}_disk
               bootable: True
           nics:
           - name: nic1

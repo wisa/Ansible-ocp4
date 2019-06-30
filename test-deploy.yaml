@@ -1,6 +1,6 @@
 ---
   - name: deploy vm test
-    hosts: rhv
+    hosts: rhvm.wisa.mylab
     gather_facts: false
     become: true
     tasks:

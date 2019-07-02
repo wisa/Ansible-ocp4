@@ -1,5 +1,5 @@
 ---
-  - name: Deploy Bootstrap VM
+  - name: Deploy additional worker node VM
     hosts: rhvm.wisa.mylab
     gather_facts: false
     become: true

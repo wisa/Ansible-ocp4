@@ -17,7 +17,7 @@
           activate: yes
           bootable: yes
           name: "{{ NEW_NODE }}_disk"
-          size: 25GiB
+          size: "{{ DISK_SIZE }}GiB
           format: cow
           interface: virtio
           storage_domain: hosted_storage

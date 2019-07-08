@@ -10,5 +10,5 @@
         key_secret: "2rVr84gPJdn8uQT/DQb4pQ=="
         server: "192.168.2.20"
         zone: "wisa.mylab"
-        record: "{ RECORD_NAME }"
-        value: "{ IP_ADDRESS }"
+        record: "{{ RECORD_NAME }}"
+        value: "{{ IP_ADDRESS }}"

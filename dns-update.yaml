@@ -1,6 +1,6 @@
 ---
   - name: Update DNS record
-    hosts: ns2.wisa.mylab
+    hosts: ns1.wisa.mylab
     gather_facts: false
     become: true
     tasks:
@@ -8,7 +8,7 @@
       nsupdate:
         key_name: "rndc-key"
         key_secret: "2rVr84gPJdn8uQT/DQb4pQ=="
-        server: "192.168.122.160"
+        server: "192.168.2.20"
         zone: "wisa.mylab"
-        record: "ansible1"
-        value: "192.168.1.132"
+        record: "ansible"
+        value: "192.168.2.132"

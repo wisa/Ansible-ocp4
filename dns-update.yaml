@@ -4,7 +4,7 @@
     gather_facts: false
     become: true
     tasks:
-    - name: Add or modify ansible.wisa.mylab A to 192.168.2.133"
+    - name: Add DNS A record entry"
       nsupdate:
         key_name: "rndc-key"
         key_secret: "2rVr84gPJdn8uQT/DQb4pQ=="
